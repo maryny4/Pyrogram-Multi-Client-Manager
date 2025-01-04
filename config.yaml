@@ -1,80 +1,214 @@
 clients:
-  - session_name: user1
-    type: user
+  # -------------------------------
+  # 1) user1
+  # -------------------------------
+  - session_name: "user1"
+    type: "user"
     api_id: YOUR_API_ID
-    api_hash: YOUR_API_HASH
-    app_version: "1.0.0"
-    device_model: "DeviceModel"
-    system_version: "SystemVersion"
+    api_hash: "YOUR_API_HASH"
+    app_version: "User1App 1.2.3"
+    device_model: "User1Device"
+    system_version: "User1OS 1.0"
     lang_code: "en"
     ipv6: false
     proxy: null
     test_mode: false
     bot_token: null
     session_string: null
+    in_memory: false
     phone_number: "+1234567890"
-    phone_code: null
-    password: null
-    workers: 4
-    sleep_threshold: 10
-    max_concurrent_transmissions: 1
+    phone_code: ""
+    password: ""
+    workers: 3
+    workdir: "sessions"
     parse_mode: "HTML"
     no_updates: false
     takeout: false
-    hide_password: true
-    workdir: "sessions"
-    in_memory: false
+    sleep_threshold: 10
+    hide_password: false
+    max_concurrent_transmissions: 1
+
+    # Session Configuration
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    # Error Handler Configuration
+    error_handler:
+      sleep_threshold: 10
+      max_retries: 3
+      retry_delay: 5
+
     plugins:
       enabled: true
-      root: "plugins/user_plugins"
-      include:
-        - "user1"
-        - "user2"
-      exclude:
-        - "excluded_plugin"
+      root: "plugins/user_plugins/user1"
+      include: ["user_commands", "user_periodic"]
+      exclude: []
+
     periodic_tasks:
       enabled: true
       schedule_module: "plugins.user_plugins.user1.user_periodic"
       schedule_function: "schedule_user1_tasks"
       tasks:
-        - "update_saved_message"
+        - user1_task_send
 
-  - session_name: bot1
-    type: bot
+  # -------------------------------
+  # 2) user2
+  # -------------------------------
+  - session_name: "user2"
+    type: "user"
     api_id: YOUR_API_ID
-    api_hash: YOUR_API_HASH
-    app_version: "1.0.0"
-    device_model: "DeviceModel"
-    system_version: "SystemVersion"
+    api_hash: "YOUR_API_HASH"
+    app_version: "User2App 2.1"
+    device_model: "User2Device"
+    system_version: "User2OS 2.0"
+    lang_code: "ru"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: null
+    session_string: null
+    in_memory: false
+    phone_number: "+1234567890"
+    phone_code: ""
+    password: "YOUR_PASSWORD"
+    workers: 2
+    workdir: "sessions"
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    sleep_threshold: 15
+    hide_password: false
+    max_concurrent_transmissions: 1
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 15
+      max_retries: 3
+      retry_delay: 5
+
+    plugins:
+      enabled: true
+      root: "plugins/user_plugins/user2"
+      include: ["user_commands", "user_periodic"]
+      exclude: []
+
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.user_plugins.user2.user_periodic"
+      schedule_function: "schedule_user2_tasks"
+      tasks:
+        - user2_task_notify
+
+  # -------------------------------
+  # 3) bot1
+  # -------------------------------
+  - session_name: "bot1"
+    type: "bot"
+    api_id: YOUR_API_ID
+    api_hash: "YOUR_API_HASH"
+    app_version: "Bot1App 3.3.3"
+    device_model: "Bot1Device"
+    system_version: "Bot1OS 3.0"
     lang_code: "en"
     ipv6: false
     proxy: null
     test_mode: false
     bot_token: "YOUR_BOT_TOKEN"
     session_string: null
+    in_memory: false
     phone_number: null
     phone_code: null
     password: null
-    workers: 4
-    sleep_threshold: 10
-    max_concurrent_transmissions: 1
+    workers: 2
+    workdir: "sessions"
     parse_mode: "HTML"
     no_updates: false
     takeout: false
-    hide_password: true
-    workdir: "sessions"
-    in_memory: false
+    sleep_threshold: 5
+    hide_password: false
+    max_concurrent_transmissions: 2
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 5
+      max_retries: 3
+      retry_delay: 3
+
     plugins:
       enabled: true
-      root: "plugins/bot_plugins"
-      include:
-        - "bot1"
-        - "bot2"
-      exclude:
-        - "excluded_plugin"
+      root: "plugins/bot_plugins/bot1"
+      include: ["bot_commands", "bot_periodic"]
+      exclude: []
+
     periodic_tasks:
       enabled: true
       schedule_module: "plugins.bot_plugins.bot1.bot_periodic"
       schedule_function: "schedule_bot1_tasks"
       tasks:
-        - "update_user_messages"
+        - bot1_task_send
+
+  # -------------------------------
+  # 4) bot2
+  # -------------------------------
+  - session_name: "bot2"
+    type: "bot"
+    api_id: YOUR_API_ID
+    api_hash: "YOUR_API_HASH"
+    app_version: "Bot2App 4.4.4"
+    device_model: "Bot2Device"
+    system_version: "Bot2OS 4.0"
+    lang_code: "en"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: "YOUR_BOT_TOKEN"
+    session_string: null
+    in_memory: false
+    phone_number: null
+    phone_code: null
+    password: null
+    workers: 2
+    workdir: "sessions"
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    sleep_threshold: 5
+    hide_password: false
+    max_concurrent_transmissions: 2
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 5
+      max_retries: 3
+      retry_delay: 3
+
+    plugins:
+      enabled: true
+      root: "plugins/bot_plugins/bot2"
+      include: ["bot_commands", "bot_periodic"]
+      exclude: []
+
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.bot_plugins.bot2.bot_periodic"
+      schedule_function: "schedule_bot2_tasks"
+      tasks:
+        - bot2_task_send
