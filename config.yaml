@@ -1,0 +1,80 @@
+clients:
+  - session_name: user1
+    type: user
+    api_id: YOUR_API_ID
+    api_hash: YOUR_API_HASH
+    app_version: "1.0.0"
+    device_model: "DeviceModel"
+    system_version: "SystemVersion"
+    lang_code: "en"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: null
+    session_string: null
+    phone_number: "+1234567890"
+    phone_code: null
+    password: null
+    workers: 4
+    sleep_threshold: 10
+    max_concurrent_transmissions: 1
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    hide_password: true
+    workdir: "sessions"
+    in_memory: false
+    plugins:
+      enabled: true
+      root: "plugins/user_plugins"
+      include:
+        - "user1"
+        - "user2"
+      exclude:
+        - "excluded_plugin"
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.user_plugins.user1.user_periodic"
+      schedule_function: "schedule_user1_tasks"
+      tasks:
+        - "update_saved_message"
+
+  - session_name: bot1
+    type: bot
+    api_id: YOUR_API_ID
+    api_hash: YOUR_API_HASH
+    app_version: "1.0.0"
+    device_model: "DeviceModel"
+    system_version: "SystemVersion"
+    lang_code: "en"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: "YOUR_BOT_TOKEN"
+    session_string: null
+    phone_number: null
+    phone_code: null
+    password: null
+    workers: 4
+    sleep_threshold: 10
+    max_concurrent_transmissions: 1
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    hide_password: true
+    workdir: "sessions"
+    in_memory: false
+    plugins:
+      enabled: true
+      root: "plugins/bot_plugins"
+      include:
+        - "bot1"
+        - "bot2"
+      exclude:
+        - "excluded_plugin"
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.bot_plugins.bot1.bot_periodic"
+      schedule_function: "schedule_bot1_tasks"
+      tasks:
+        - "update_user_messages"
