@@ -1,4 +1,3 @@
-Certainly! Below is the fully translated and properly edited `README.md` for your **Pyrogram Multi-Client Manager** project. The configuration file (`config.yaml`) within the README has been updated with English comments and placeholder values for sensitive information.
 
 ---
 
