@@ -1,3 +1,7 @@
+Certainly! Below is the fully translated and properly edited `README.md` for your **Pyrogram Multi-Client Manager** project. The configuration file (`config.yaml`) within the README has been updated with English comments and placeholder values for sensitive information.
+
+---
+
 # Pyrogram Multi-Client Manager
 
 ![Pyrogram](https://img.shields.io/badge/Pyrogram-v2.0-blue.svg)
@@ -63,8 +67,8 @@ Pyrogram Multi-Client Manager is a robust and flexible Python framework designed
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/pyrogram-multi-client-manager.git
-   cd pyrogram-multi-client-manager
+   git clone https://github.com/maryny4/Pyrogram-Multi-Client-Manager.git
+   cd Pyrogram-Multi-Client-Manager
    ```
 
 2. **Create a Virtual Environment**
@@ -90,85 +94,219 @@ All configurations are managed through the `config.yaml` file located in the pro
 
 ```yaml
 clients:
-  - session_name: user1
-    type: user
+  # -------------------------------
+  # 1) user1
+  # -------------------------------
+  - session_name: "user1"
+    type: "user"
     api_id: YOUR_API_ID
-    api_hash: YOUR_API_HASH
-    app_version: "1.0.0"
-    device_model: "DeviceModel"
-    system_version: "SystemVersion"
+    api_hash: "YOUR_API_HASH"
+    app_version: "User1App 1.2.3"
+    device_model: "User1Device"
+    system_version: "User1OS 1.0"
     lang_code: "en"
     ipv6: false
     proxy: null
     test_mode: false
     bot_token: null
     session_string: null
+    in_memory: false
     phone_number: "+1234567890"
-    phone_code: null
-    password: null
-    workers: 4
-    sleep_threshold: 10
-    max_concurrent_transmissions: 1
+    phone_code: ""
+    password: ""
+    workers: 3
+    workdir: "sessions"
     parse_mode: "HTML"
     no_updates: false
     takeout: false
-    hide_password: true
-    workdir: "sessions"
-    in_memory: false
+    sleep_threshold: 10
+    hide_password: false
+    max_concurrent_transmissions: 1
+
+    # Session Configuration
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    # Error Handler Configuration
+    error_handler:
+      sleep_threshold: 10
+      max_retries: 3
+      retry_delay: 5
+
     plugins:
       enabled: true
-      root: "plugins/user_plugins"
-      include:
-        - "user1"
-        - "user2"
-      exclude:
-        - "excluded_plugin"
+      root: "plugins/user_plugins/user1"
+      include: ["user_commands", "user_periodic"]
+      exclude: []
+
     periodic_tasks:
       enabled: true
       schedule_module: "plugins.user_plugins.user1.user_periodic"
       schedule_function: "schedule_user1_tasks"
       tasks:
-        - "update_saved_message"
+        - user1_task_send
 
-  - session_name: bot1
-    type: bot
+  # -------------------------------
+  # 2) user2
+  # -------------------------------
+  - session_name: "user2"
+    type: "user"
     api_id: YOUR_API_ID
-    api_hash: YOUR_API_HASH
-    app_version: "1.0.0"
-    device_model: "DeviceModel"
-    system_version: "SystemVersion"
+    api_hash: "YOUR_API_HASH"
+    app_version: "User2App 2.1"
+    device_model: "User2Device"
+    system_version: "User2OS 2.0"
+    lang_code: "ru"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: null
+    session_string: null
+    in_memory: false
+    phone_number: "+1234567890"
+    phone_code: ""
+    password: "YOUR_PASSWORD"
+    workers: 2
+    workdir: "sessions"
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    sleep_threshold: 15
+    hide_password: false
+    max_concurrent_transmissions: 1
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 15
+      max_retries: 3
+      retry_delay: 5
+
+    plugins:
+      enabled: true
+      root: "plugins/user_plugins/user2"
+      include: ["user_commands", "user_periodic"]
+      exclude: []
+
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.user_plugins.user2.user_periodic"
+      schedule_function: "schedule_user2_tasks"
+      tasks:
+        - user2_task_notify
+
+  # -------------------------------
+  # 3) bot1
+  # -------------------------------
+  - session_name: "bot1"
+    type: "bot"
+    api_id: YOUR_API_ID
+    api_hash: "YOUR_API_HASH"
+    app_version: "Bot1App 3.3.3"
+    device_model: "Bot1Device"
+    system_version: "Bot1OS 3.0"
     lang_code: "en"
     ipv6: false
     proxy: null
     test_mode: false
     bot_token: "YOUR_BOT_TOKEN"
     session_string: null
+    in_memory: false
     phone_number: null
     phone_code: null
     password: null
-    workers: 4
-    sleep_threshold: 10
-    max_concurrent_transmissions: 1
+    workers: 2
+    workdir: "sessions"
     parse_mode: "HTML"
     no_updates: false
     takeout: false
-    hide_password: true
-    workdir: "sessions"
-    in_memory: false
+    sleep_threshold: 5
+    hide_password: false
+    max_concurrent_transmissions: 2
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 5
+      max_retries: 3
+      retry_delay: 3
+
     plugins:
       enabled: true
-      root: "plugins/bot_plugins"
-      include:
-        - "bot1"
-        - "bot2"
-      exclude:
-        - "excluded_plugin"
+      root: "plugins/bot_plugins/bot1"
+      include: ["bot_commands", "bot_periodic"]
+      exclude: []
+
     periodic_tasks:
       enabled: true
       schedule_module: "plugins.bot_plugins.bot1.bot_periodic"
       schedule_function: "schedule_bot1_tasks"
       tasks:
-        - "update_user_messages"
+        - bot1_task_send
+
+  # -------------------------------
+  # 4) bot2
+  # -------------------------------
+  - session_name: "bot2"
+    type: "bot"
+    api_id: YOUR_API_ID
+    api_hash: "YOUR_API_HASH"
+    app_version: "Bot2App 4.4.4"
+    device_model: "Bot2Device"
+    system_version: "Bot2OS 4.0"
+    lang_code: "en"
+    ipv6: false
+    proxy: null
+    test_mode: false
+    bot_token: "YOUR_BOT_TOKEN"
+    session_string: null
+    in_memory: false
+    phone_number: null
+    phone_code: null
+    password: null
+    workers: 2
+    workdir: "sessions"
+    parse_mode: "HTML"
+    no_updates: false
+    takeout: false
+    sleep_threshold: 5
+    hide_password: false
+    max_concurrent_transmissions: 2
+
+    session:
+      type: "file"
+      string: null
+      workdir: "sessions"
+      in_memory: false
+
+    error_handler:
+      sleep_threshold: 5
+      max_retries: 3
+      retry_delay: 3
+
+    plugins:
+      enabled: true
+      root: "plugins/bot_plugins/bot2"
+      include: ["bot_commands", "bot_periodic"]
+      exclude: []
+
+    periodic_tasks:
+      enabled: true
+      schedule_module: "plugins.bot_plugins.bot2.bot_periodic"
+      schedule_function: "schedule_bot2_tasks"
+      tasks:
+        - bot2_task_send
 ```
 
 ### Client Configuration
@@ -221,7 +359,7 @@ periodic_tasks:
   schedule_module: "plugins.user_plugins.user1.user_periodic"
   schedule_function: "schedule_user1_tasks"
   tasks:
-    - "update_saved_message"
+    - user1_task_send
 ```
 
 - **enabled**: Enable or disable periodic tasks.
@@ -518,205 +656,7 @@ Connecting clients involves setting up both user and bot clients with their resp
 
 1. **Update `config.yaml`**
 
-   Add a new client configuration under the `clients` section as shown in the [Configuration](#configuration) section.
-
-   ```yaml
-   clients:
-     - session_name: user3
-       type: user
-       api_id: YOUR_API_ID
-       api_hash: YOUR_API_HASH
-       app_version: "1.0.0"
-       device_model: "DeviceModel"
-       system_version: "SystemVersion"
-       lang_code: "en"
-       ipv6: false
-       proxy: null
-       test_mode: false
-       bot_token: null
-       session_string: null
-       phone_number: "+1234567890"
-       phone_code: null
-       password: null
-       workers: 4
-       sleep_threshold: 10
-       max_concurrent_transmissions: 1
-       parse_mode: "HTML"
-       no_updates: false
-       takeout: false
-       hide_password: true
-       workdir: "sessions"
-       in_memory: false
-       plugins:
-         enabled: true
-         root: "plugins/user_plugins"
-         include:
-           - "user3"
-         exclude:
-           - "excluded_plugin"
-       periodic_tasks:
-         enabled: true
-         schedule_module: "plugins.user_plugins.user3.user_periodic"
-         schedule_function: "schedule_user3_tasks"
-         tasks:
-           - "update_saved_message"
-
-     - session_name: bot3
-       type: bot
-       api_id: YOUR_API_ID
-       api_hash: YOUR_API_HASH
-       app_version: "1.0.0"
-       device_model: "DeviceModel"
-       system_version: "SystemVersion"
-       lang_code: "en"
-       ipv6: false
-       proxy: null
-       test_mode: false
-       bot_token: "YOUR_BOT_TOKEN"
-       session_string: null
-       phone_number: null
-       phone_code: null
-       password: null
-       workers: 4
-       sleep_threshold: 10
-       max_concurrent_transmissions: 1
-       parse_mode: "HTML"
-       no_updates: false
-       takeout: false
-       hide_password: true
-       workdir: "sessions"
-       in_memory: false
-       plugins:
-         enabled: true
-         root: "plugins/bot_plugins"
-         include:
-           - "bot3"
-         exclude:
-           - "excluded_plugin"
-       periodic_tasks:
-         enabled: true
-         schedule_module: "plugins.bot_plugins.bot3.bot_periodic"
-         schedule_function: "schedule_bot3_tasks"
-         tasks:
-           - "update_user_messages"
-   ```
-
-2. **Set Up Plugin Directories**
-
-   Create corresponding plugin directories for the new clients.
-
-   ```bash
-   mkdir plugins/user_plugins/user3
-   touch plugins/user_plugins/user3/__init__.py
-   touch plugins/user_plugins/user3/user_commands.py
-   touch plugins/user_plugins/user3/user_periodic.py
-
-   mkdir plugins/bot_plugins/bot3
-   touch plugins/bot_plugins/bot3/__init__.py
-   touch plugins/bot_plugins/bot3/bot_commands.py
-   touch plugins/bot_plugins/bot3/bot_periodic.py
-   ```
-
-3. **Implement Plugin Functionality**
-
-   Develop your command handlers and periodic tasks within the newly created plugin files, following the structure outlined in the [Plugin System](#plugin-system) section.
-
-4. **Run the Application**
-
-   Start the application to initialize the new clients.
-
-   ```bash
-   python main.py
-   ```
-
-   The application will automatically load the new client configurations and initialize the associated plugins and periodic tasks.
-
-## Logging
-
-The application provides comprehensive logging with colored outputs for different client types. Logs are categorized into separate files based on client types (e.g., `user.log`, `bot.log`, `system.log`) and also output to the console with color-coded messages.
-
-### Log Files
-
-- **ErrorHandler.log**: Logs related to error handling.
-- **MessageFormatter.log**: Logs pertaining to message formatting.
-- **SessionManager.log**: Logs about session management.
-- **bot.log**: General logs for bot clients.
-- **system.log**: Logs for system-level messages.
-- **user.log**: General logs for user clients.
-
-Logs are stored in the `logs/` directory with automatic rotation (max 2MB per file, up to 3 backups).
-
-### Console Output
-
-The console displays colored and categorized log messages for real-time monitoring. Different colors represent different log levels and client types for easy differentiation.
-
-## Error Handling
-
-The framework features an enhanced error handler (`EnhancedErrorHandler`) that manages different types of exceptions, including MTProto-specific errors like `FloodWait`. It maintains error statistics and can decide whether to retry operations based on the error type and severity.
-
-### EnhancedErrorHandler
-
-- **FloodWait Handling**: Automatically retries after waiting if the wait time is below a configurable threshold.
-- **Detailed Logging**: Logs detailed information about errors, including client type and session information.
-- **Statistics Tracking**: Keeps track of error counts and types for monitoring and debugging.
-- **MTProto Support**: Utilizes MTProto functions to fetch additional error details when necessary.
-
-**Example Usage:**
-
-The `ClientManager` integrates `EnhancedErrorHandler` to process errors during client operations.
-
-```python
-self.error_handler = EnhancedErrorHandler(
-    self.client,
-    f"ErrorHandler_{self.config.session_name}",
-    self.config.sleep_threshold
-)
-```
-
-## Session Management
-
-Sessions are managed using the `SessionManager`, which supports different session types:
-
-### Session Types
-
-- **File-Based**: Stores session data in files within the `sessions/` directory.
-- **In-Memory**: Stores session data in memory (useful for ephemeral sessions).
-- **String-Based**: Allows exporting and importing sessions as strings.
-
-### SessionManager
-
-- **Initialization**: Sets up the session based on the configuration type.
-- **Exporting Sessions**: Can export session strings for backup or transfer.
-- **Importing Sessions**: Allows restoring sessions from exported strings.
-- **Session Information**: Provides details about the current session state.
-
-**Example Configuration:**
-
-```yaml
-session:
-  type: "file"  # Options: file, memory, string
-  string: null
-  workdir: "sessions"
-  in_memory: false
-```
-
-## Connecting Clients
-
-Connecting clients involves setting up both user and bot clients with their respective credentials and configurations.
-
-### Obtaining Telegram API Credentials
-
-1. **Register an Application**:
-   - Go to [my.telegram.org](https://my.telegram.org/).
-   - Log in with your Telegram account.
-   - Navigate to the "API Development Tools" section.
-   - Create a new application to obtain your `api_id` and `api_hash`.
-
-### Adding a New Client
-
-1. **Update `config.yaml`**
-
-   Add a new client configuration under the `clients` section as shown in the [Configuration](#configuration) section.
+   Add a new client configuration under the `clients` section as shown in the [Client Configuration](#client-configuration) section.
 
 2. **Set Up Plugin Directories**
 
@@ -797,8 +737,6 @@ This project is licensed under the [MIT License](LICENSE).
 - **Plugin Development**: When creating plugins, adhere to the existing plugin structure to ensure seamless integration and functionality.
 - **Logging Levels**: Adjust logging levels as needed in `logger.py` to control the verbosity of log outputs.
 
-If you encounter any issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/yourusername/pyrogram-multi-client-manager/issues).
+If you encounter any issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/maryny4/Pyrogram-Multi-Client-Manager/issues).
 
----
 
-*Happy Telegraming!*
